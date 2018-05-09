@@ -266,6 +266,12 @@ class DBFile extends DBComposite implements AssetContainer, Thumbnail
             ->getAsString($this->Filename, $this->Hash, $this->Variant);
     }
 
+    //mwuits:
+    public function Link($grant = true)
+    {
+        return $this->getURL($grant);
+    }
+
     public function getURL($grant = true)
     {
         if (!$this->exists()) {

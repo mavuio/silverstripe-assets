@@ -771,7 +771,9 @@ class FlysystemAssetStore implements AssetStore, AssetStoreRouter, Flushable
         if ($this->useLegacyFilenames()) {
             $pattern = '#^(?<folder>([^/]+/)*)(?<basename>((?<!__)[^/.])+)(__(?<variant>[^.]+))?(?<extension>(\..+)*)$#';
         } else {
-            $pattern = '#^(?<folder>([^/]+/)*)(?<hash>[a-zA-Z0-9]{10})/(?<basename>((?<!__)[^/.])+)(__(?<variant>[^.]+))?(?<extension>(\..+)*)$#';
+//            $pattern = '#^(?<folder>([^/]+/)*)(?<hash>[a-zA-Z0-9]{10})/(?<basename>((?<!__)[^/.])+)(__(?<variant>[^.]+))?(?<extension>(\..+)*)$#';
+            //mwuits:
+            $pattern='#^(?<folder>/([^/]+/)*)_resampled/(?<hash>[a-zA-Z0-9]{10})/(?<basename>((?<!__)[^/.])+)(__(?<variant>[^.]+))?(?<extension>(\..+)*)$#';
         }
 
         // not a valid file (or not a part of the filesystem)
@@ -859,7 +861,9 @@ class FlysystemAssetStore implements AssetStore, AssetStoreRouter, Flushable
         if ($this->useLegacyFilenames()) {
             $fileID = $name;
         } else {
-            $fileID = substr($hash, 0, 10) . '/' . $name;
+            //mwuits:
+            $fileID = '_resampled/'.substr($hash, 0, 10) . '/' . $name;
+
         }
 
         // Add directory
