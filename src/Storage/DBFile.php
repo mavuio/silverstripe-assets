@@ -266,11 +266,7 @@ class DBFile extends DBComposite implements AssetContainer, Thumbnail
             ->getAsString($this->Filename, $this->Hash, $this->Variant);
     }
 
-    //mwuits:
-    public function Link($grant = true)
-    {
-        return $this->getURL($grant);
-    }
+
 
     public function getURL($grant = true)
     {
@@ -288,9 +284,10 @@ class DBFile extends DBComposite implements AssetContainer, Thumbnail
      *
      * @return string
      */
-    public function Link()
+    //mwuits added $grant here:
+    public function Link($grant = true)
     {
-        return $this->getURL();
+        return $this->getURL($grant);
     }
 
     /**
