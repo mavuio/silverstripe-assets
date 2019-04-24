@@ -55,7 +55,7 @@ trait ImageManipulation
     /**
      * Set whether image resizes are allowed
      *
-     * @param bool $allow
+     * @param  bool $allow
      * @return $this
      */
     public function setAllowGeneration($allow)
@@ -83,10 +83,12 @@ trait ImageManipulation
     {
         $value = [
             'Filename' => $this->getFilename(),
-            'Variant' => $this->getVariant(),
-            'Hash' => $this->getHash()
+            'Variant'  => $this->getVariant(),
+            'Hash'     => $this->getHash(),
         ];
-        /** @var DBFile $file */
+        /**
+ * @var DBFile $file
+*/
         $file = DBField::create_field('DBFile', $value);
         $file->setAllowGeneration(false);
         return $file;
@@ -174,7 +176,7 @@ trait ImageManipulation
      * Off by default, as this can be resource intensive to apply to multiple images simultaneously.
      *
      * @config
-     * @var bool
+     * @var    bool
      */
     private static $force_resample = false;
 
@@ -194,7 +196,7 @@ trait ImageManipulation
      * The width of an image thumbnail in the CMS.
      *
      * @config
-     * @var int
+     * @var    int
      */
     private static $cms_thumbnail_width = 100;
 
@@ -202,7 +204,7 @@ trait ImageManipulation
      * The height of an image thumbnail in the CMS.
      *
      * @config
-     * @var int
+     * @var    int
      */
     private static $cms_thumbnail_height = 100;
 
@@ -210,7 +212,7 @@ trait ImageManipulation
      * The width of an image preview in the Asset section
      *
      * @config
-     * @var int
+     * @var    int
      */
     private static $asset_preview_width = 930; // max for mobile full-width
 
@@ -218,7 +220,7 @@ trait ImageManipulation
      * The height of an image preview in the Asset section
      *
      * @config
-     * @var int
+     * @var    int
      */
     private static $asset_preview_height = 336;
 
@@ -226,10 +228,10 @@ trait ImageManipulation
      * Fit image to specified dimensions and fill leftover space with a solid colour (default white). Use in
      * templates with $Pad.
      *
-     * @param int $width The width to size to
-     * @param int $height The height to size to
-     * @param string $backgroundColor
-     * @param int $transparencyPercent Level of transparency
+     * @param  int $width The width to size to
+     * @param  int $height The height to size to
+     * @param  string $backgroundColor
+     * @param  int $transparencyPercent Level of transparency
      * @return AssetContainer
      */
     public function Pad($width, $height, $backgroundColor = 'FFFFFF', $transparencyPercent = 0)
@@ -301,8 +303,8 @@ trait ImageManipulation
      * This can be used in templates with $ResizedImage but should be avoided,
      * as it's the only image manipulation function which can skew an image.
      *
-     * @param int $width Width to resize to
-     * @param int $height Height to resize to
+     * @param  int $width Width to resize to
+     * @param  int $height Height to resize to
      * @return AssetContainer
      */
     public function ResizedImage($width, $height)
@@ -321,8 +323,8 @@ trait ImageManipulation
     /**
      * Scale image proportionally to fit within the specified bounds
      *
-     * @param int $width The width to size within
-     * @param int $height The height to size within
+     * @param  int $width The width to size within
+     * @param  int $height The height to size within
      * @return AssetContainer
      */
     public function Fit($width, $height)
@@ -361,9 +363,9 @@ trait ImageManipulation
      * Proportionally scale down this image if it is wider or taller than the specified dimensions.
      * Similar to Fit but without up-sampling. Use in templates with $FitMax.
      *
-     * @uses ScalingManipulation::Fit()
-     * @param int $width The maximum width of the output image
-     * @param int $height The maximum height of the output image
+     * @uses   ScalingManipulation::Fit()
+     * @param  int $width The maximum width of the output image
+     * @param  int $height The maximum height of the output image
      * @return AssetContainer
      */
     public function FitMax($width, $height)
@@ -407,7 +409,7 @@ trait ImageManipulation
     /**
      * Scale image proportionally by width. Use in templates with $ScaleWidth.
      *
-     * @param int $width The width to set
+     * @param  int $width The width to set
      * @return AssetContainer
      */
     public function ScaleWidth($width)
@@ -426,8 +428,8 @@ trait ImageManipulation
      * Proportionally scale down this image if it is wider than the specified width.
      * Similar to ScaleWidth but without up-sampling. Use in templates with $ScaleMaxWidth.
      *
-     * @uses ScalingManipulation::ScaleWidth()
-     * @param int $width The maximum width of the output image
+     * @uses   ScalingManipulation::ScaleWidth()
+     * @param  int $width The maximum width of the output image
      * @return AssetContainer
      */
     public function ScaleMaxWidth($width)
@@ -445,7 +447,7 @@ trait ImageManipulation
     /**
      * Scale image proportionally by height. Use in templates with $ScaleHeight.
      *
-     * @param int $height The height to set
+     * @param  int $height The height to set
      * @return AssetContainer
      */
     public function ScaleHeight($height)
@@ -464,8 +466,8 @@ trait ImageManipulation
      * Proportionally scale down this image if it is taller than the specified height.
      * Similar to ScaleHeight but without up-sampling. Use in templates with $ScaleMaxHeight.
      *
-     * @uses ScalingManipulation::ScaleHeight()
-     * @param int $height The maximum height of the output image
+     * @uses   ScalingManipulation::ScaleHeight()
+     * @param  int $height The maximum height of the output image
      * @return AssetContainer
      */
     public function ScaleMaxHeight($height)
@@ -485,8 +487,8 @@ trait ImageManipulation
      * Crop image on X axis if it exceeds specified width. Retain height.
      * Use in templates with $CropWidth. Example: $Image.ScaleHeight(100).$CropWidth(100)
      *
-     * @uses CropManipulation::Fill()
-     * @param int $width The maximum width of the output image
+     * @uses   CropManipulation::Fill()
+     * @param  int $width The maximum width of the output image
      * @return AssetContainer
      */
     public function CropWidth($width)
@@ -507,8 +509,8 @@ trait ImageManipulation
      * Crop image on Y axis if it exceeds specified height. Retain width.
      * Use in templates with $CropHeight. Example: $Image.ScaleWidth(100).CropHeight(100)
      *
-     * @uses CropManipulation::Fill()
-     * @param int $height The maximum height of the output image
+     * @uses   CropManipulation::Fill()
+     * @param  int $height The maximum height of the output image
      * @return AssetContainer
      */
     public function CropHeight($height)
@@ -530,9 +532,9 @@ trait ImageManipulation
      * then scale down the image to those dimensions if it exceeds them.
      * Similar to Fill but without up-sampling. Use in templates with $FillMax.
      *
-     * @uses ImageManipulation::Fill()
-     * @param int $width The relative (used to determine aspect ratio) and maximum width of the output image
-     * @param int $height The relative (used to determine aspect ratio) and maximum height of the output image
+     * @uses   ImageManipulation::Fill()
+     * @param  int $width The relative (used to determine aspect ratio) and maximum width of the output image
+     * @param  int $height The relative (used to determine aspect ratio) and maximum height of the output image
      * @return AssetContainer
      */
     public function FillMax($width, $height)
@@ -571,8 +573,8 @@ trait ImageManipulation
      * Resize and crop image to fill specified dimensions.
      * Use in templates with $Fill
      *
-     * @param int $width Width to crop to
-     * @param int $height Height to crop to
+     * @param  int $width Width to crop to
+     * @param  int $height Height to crop to
      * @return AssetContainer
      */
     public function Fill($width, $height)
@@ -626,8 +628,8 @@ trait ImageManipulation
     /**
      * Default thumbnail generation for Images
      *
-     * @param int $width
-     * @param int $height
+     * @param  int $width
+     * @param  int $height
      * @return AssetContainer
      */
     public function Thumbnail($width, $height)
@@ -640,8 +642,8 @@ trait ImageManipulation
      *
      * Resizes images, but returns an icon <img /> tag if this is not a resizable image
      *
-     * @param int $width
-     * @param int $height
+     * @param  int $width
+     * @param  int $height
      * @return AssetContainer|DBHTMLText
      */
     public function ThumbnailIcon($width, $height)
@@ -656,7 +658,9 @@ trait ImageManipulation
      */
     public function IconTag()
     {
-        /** @var DBHTMLText $image */
+        /**
+ * @var DBHTMLText $image
+*/
         $image = DBField::create_field(
             'HTMLFragment',
             HTML::createTag('img', ['src' => $this->getIcon()])
@@ -669,8 +673,8 @@ trait ImageManipulation
      *
      * May fallback to default icon
      *
-     * @param int $width
-     * @param int $height
+     * @param  int $width
+     * @param  int $height
      * @return string
      */
     public function ThumbnailURL($width, $height)
@@ -724,9 +728,11 @@ trait ImageManipulation
      */
     public function getWidth()
     {
-        $backend = $this->getImageBackend();
-        if ($backend) {
-            return $backend->getWidth();
+        if ($this->exists() && $this->getIsImage()) {
+            $backend = $this->getImageBackend();
+            if ($backend) {
+                return $backend->getWidth();
+            }
         }
         return 0;
     }
@@ -738,9 +744,11 @@ trait ImageManipulation
      */
     public function getHeight()
     {
-        $backend = $this->getImageBackend();
-        if ($backend) {
-            return $backend->getHeight();
+        if ($this->exists() && $this->getIsImage()) {
+            $backend = $this->getImageBackend();
+            if ($backend) {
+                return $backend->getHeight();
+            }
         }
         return 0;
     }
@@ -766,8 +774,8 @@ trait ImageManipulation
     /**
      * Determine if this image is of the specified size
      *
-     * @param int $width Width to check
-     * @param int $height Height to check
+     * @param  int $width Width to check
+     * @param  int $height Height to check
      * @return boolean
      */
     public function isSize($width, $height)
@@ -778,7 +786,7 @@ trait ImageManipulation
     /**
      * Determine if this image is of the specified width
      *
-     * @param int $width Width to check
+     * @param  int $width Width to check
      * @return boolean
      */
     public function isWidth($width)
@@ -790,7 +798,7 @@ trait ImageManipulation
     /**
      * Determine if this image is of the specified width
      *
-     * @param int $height Height to check
+     * @param  int $height Height to check
      * @return boolean
      */
     public function isHeight($height)
@@ -802,8 +810,8 @@ trait ImageManipulation
     /**
      * Wrapper for manipulate that passes in and stores Image_Backend objects instead of tuples
      *
-     * @param string $variant
-     * @param callable $callback Callback which takes an Image_Backend object, and returns an Image_Backend result.
+     * @param  string $variant
+     * @param  callable $callback Callback which takes an Image_Backend object, and returns an Image_Backend result.
      * If this callback returns `true` then the current image will be duplicated without modification.
      * @return DBFile The manipulated file
      */
@@ -812,7 +820,9 @@ trait ImageManipulation
         return $this->manipulate(
             $variant,
             function (AssetStore $store, $filename, $hash, $variant) use ($callback) {
-                /** @var Image_Backend $backend */
+                /**
+            * @var Image_Backend $backend
+            */
                 $backend = $this->getImageBackend();
 
                 // If backend isn't available
@@ -840,7 +850,9 @@ trait ImageManipulation
                 // Write from modified backend
                 if ($result instanceof Image_Backend) {
                     try {
-                        /** @var Image_Backend $result */
+                        /**
+            * @var Image_Backend $result
+            */
                         return $result->writeToStore(
                             $store,
                             $filename,
@@ -863,8 +875,8 @@ trait ImageManipulation
      * Generate a new DBFile instance using the given callback if it hasn't been created yet, or
      * return the existing one if it has.
      *
-     * @param string $variant name of the variant to create
-     * @param callable $callback Callback which should return a new tuple as an array.
+     * @param  string $variant name of the variant to create
+     * @param  callable $callback Callback which should return a new tuple as an array.
      * This callback will be passed the backend, filename, hash, and variant
      * This will not be called if the file does not
      * need to be created.
@@ -903,8 +915,8 @@ trait ImageManipulation
         } else {
             $result = array(
                 'Filename' => $filename,
-                'Hash' => $hash,
-                'Variant' => $variant
+                'Hash'     => $hash,
+                'Variant'  => $variant,
             );
         }
 
@@ -914,7 +926,9 @@ trait ImageManipulation
         }
 
         // Store result in new DBFile instance
-        /** @var DBFile $file */
+        /**
+ * @var DBFile $file
+*/
         $file = DBField::create_field('DBFile', $result);
         return $file->setOriginal($this);
     }
@@ -922,8 +936,8 @@ trait ImageManipulation
     /**
      * Name a variant based on a format with arbitrary parameters
      *
-     * @param string $format The format name.
-     * @param mixed $arg,... Additional arguments
+     * @param  string $format The format name.
+     * @param  mixed $arg,... Additional arguments
      * @return string
      * @throws InvalidArgumentException
      */
@@ -937,8 +951,8 @@ trait ImageManipulation
     /**
      * Validate a width or size is valid and casts it to integer
      *
-     * @param mixed $value value of dimension
-     * @param string $dimension Name of dimension
+     * @param  mixed $value value of dimension
+     * @param  string $dimension Name of dimension
      * @return int Validated value
      */
     protected function castDimension($value, $dimension)
