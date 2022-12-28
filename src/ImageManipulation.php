@@ -724,9 +724,12 @@ trait ImageManipulation
      */
     public function getWidth()
     {
-        $backend = $this->getImageBackend();
-        if ($backend) {
-            return $backend->getWidth();
+        //mwuits added this extra-IsImageCheck (because SVG's) 2022-12-28:
+        if ($this->exists() && $this->getIsImage()) {
+            $backend = $this->getImageBackend();
+            if ($backend) {
+                return $backend->getWidth();
+            }
         }
         return 0;
     }
@@ -738,9 +741,12 @@ trait ImageManipulation
      */
     public function getHeight()
     {
-        $backend = $this->getImageBackend();
-        if ($backend) {
-            return $backend->getHeight();
+        //mwuits added this extra-IsImageCheck (because SVG's) 2022-12-28:
+        if ($this->exists() && $this->getIsImage()) {
+            $backend = $this->getImageBackend();
+            if ($backend) {
+                return $backend->getHeight();
+            }
         }
         return 0;
     }
